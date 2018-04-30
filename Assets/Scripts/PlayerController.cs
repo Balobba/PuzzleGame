@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {//Contains all movements of the player, including attacks and animations
+public class PlayerController : MonoBehaviour {//Contains all movements of the player, including actions and animations
 
     Rigidbody2D rbody;
     Animator anim;
 
-    private bool attacking;
-    public float attackTime;
-    private float attackTimeCounter;
-    public float playerMovementSpeed; //the speed of the player character (1 is good for now. Increases when in bossbattle)
+    private bool action;
+    public float actionTime;
+    private float actionTimeCounter;
+    public float playerMovementSpeed; //the speed of the player character (1 is good for now)
+    public string actionButton = "";
+    public string horizontalMovement = "";
+    public string verticalMovement = "";
+
 
 
     // Use this for initialization
@@ -24,9 +28,9 @@ public class PlayerController : MonoBehaviour {//Contains all movements of the p
 	// Update is called once per frame
 	void Update ()
     {
-            if (!attacking) // add !spinning later
+            if (!action)
             {
-                Vector2 movement_vector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                Vector2 movement_vector = new Vector2(Input.GetAxisRaw(horizontalMovement), Input.GetAxisRaw(verticalMovement));
                 if (movement_vector != Vector2.zero)
                 {
                     anim.SetBool("is_walking", true);
@@ -41,30 +45,32 @@ public class PlayerController : MonoBehaviour {//Contains all movements of the p
                 rbody.MovePosition(rbody.position + movement_vector * Time.deltaTime * playerMovementSpeed);
 
 
-                if (Input.GetKeyDown(KeyCode.Space)) //keybinding for attacking
+                if (Input.GetButton(actionButton)) //keybinding for performing an action
                 {
-                    attackTimeCounter = attackTime;
-                    attacking = true;
-                    rbody.velocity = Vector2.zero; //stops moving the character
-                    anim.SetBool("is_attacking", true);
+
+                print("PRESSED: " + actionButton);
+                    actionTimeCounter = actionTime;
+                    action = true;
+                    //rbody.velocity = Vector2.zero; //stops moving the character
+                    anim.SetBool("is_performing_action", true);
 
                 }
 
-            }
+        }
 
 
  
 
-        if(attackTimeCounter > 0)
+        if(actionTimeCounter > 0)
         {
-            attackTimeCounter -= Time.deltaTime;
+            actionTimeCounter -= Time.deltaTime;
 
         }
 
-        if(attackTimeCounter <= 0)
+        if(actionTimeCounter <= 0)
         {
-            attacking = false;
-            anim.SetBool("is_attacking", false);
+            action = false;
+            anim.SetBool("is_performing_action", false);
 
         }
 
