@@ -18,18 +18,11 @@ public class CameraFollow : MonoBehaviour
 
 
     }
-
-    // Update is called once per frame
-   
-	// Use this for initialization
-	void Start () {
-        mycam = GetComponent<Camera>();
-
-
-	}
+ 
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 
         mycam.orthographicSize = (Screen.height / cameraZoom); // (Increased number = closer camera)
         if (target)
