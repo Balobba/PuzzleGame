@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {//Contains all movements of the player, including actions and animations
+public class PlayerController : MonoBehaviour
+{//Contains all movements of the player, including actions and animations
 
     Rigidbody2D rbody;
     Animator anim;
@@ -18,66 +19,67 @@ public class PlayerController : MonoBehaviour {//Contains all movements of the p
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         rbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        
+
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-            if (!action)
+        if (!action)
+        {
+            Vector2 movement_vector = new Vector2(Input.GetAxisRaw(horizontalMovement), Input.GetAxisRaw(verticalMovement));
+            if (movement_vector != Vector2.zero)
             {
-                Vector2 movement_vector = new Vector2(Input.GetAxisRaw(horizontalMovement), Input.GetAxisRaw(verticalMovement));
-                if (movement_vector != Vector2.zero)
-                {
-                    anim.SetBool("is_walking", true);
-                    anim.SetFloat("input_x", movement_vector.x);
-                    anim.SetFloat("input_y", movement_vector.y);
-                }
-                else
-                {
-                    anim.SetBool("is_walking", false);
-                }
+                anim.SetBool("is_walking", true);
+                anim.SetFloat("input_x", movement_vector.x);
+                anim.SetFloat("input_y", movement_vector.y);
+            }
+            else
+            {
+                anim.SetBool("is_walking", false);
+            }
 
-                rbody.MovePosition(rbody.position + movement_vector * Time.deltaTime * playerMovementSpeed);
+            rbody.MovePosition(rbody.position + movement_vector * Time.deltaTime * playerMovementSpeed);
 
 
-                if (Input.GetButton(actionButton)) //keybinding for performing an action
-                {
+            if (Input.GetButton(actionButton)) //keybinding for performing an action
+            {
 
                 print("PRESSED: " + actionButton);
-                    actionTimeCounter = actionTime;
-                    action = true;
-                    //rbody.velocity = Vector2.zero; //stops moving the character
-                    anim.SetBool("is_performing_action", true);
+                actionTimeCounter = actionTime;
+                action = true;
+                //rbody.velocity = Vector2.zero; //stops moving the character
+                anim.SetBool("is_performing_action", true);
 
-                }
+            }
 
         }
 
 
- 
 
-        if(actionTimeCounter > 0)
+
+        if (actionTimeCounter > 0)
         {
             actionTimeCounter -= Time.deltaTime;
 
         }
 
-        if(actionTimeCounter <= 0)
+        if (actionTimeCounter <= 0)
         {
             action = false;
             anim.SetBool("is_performing_action", false);
 
         }
 
-     
 
 
-        
+
+
 
 
     }
