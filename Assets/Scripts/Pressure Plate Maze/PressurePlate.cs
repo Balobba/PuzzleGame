@@ -14,9 +14,36 @@ public class PressurePlate : MonoBehaviour {
 
     // True while someone steps on it, false otherwise
     private bool isActive = false;
+    private Vector2Int position;
 
-	// Use this for initialization
-	void Start ()
+    public bool IsActive
+    {
+        get
+        {
+            return isActive;
+        }
+
+        private set
+        {
+            isActive = value;
+        }
+    }
+
+    public Vector2Int Position
+    {
+        get
+        {
+            return position;
+        }
+
+        set
+        {
+            position = value;
+        }
+    }
+
+    // Use this for initialization
+    void Start ()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetSprite();
@@ -24,19 +51,27 @@ public class PressurePlate : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isActive = true;
+        IsActive = true;
         SetSprite();
+        SignalPuzzle(collision.gameObject);    
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isActive = false;
+        IsActive = false;
         SetSprite();
+    }
+
+    private void SignalPuzzle(GameObject player)
+    {
+        GameObject gameObject = GameObject.Find("PressurePlatePuzzle");
+        PressurePuzzleLogic ppl = gameObject.GetComponent<PressurePuzzleLogic>();
+        ppl.PressurePlateActivated(Position, player);
     }
 
     private void SetSprite()
     {
-        if (isActive)
+        if (IsActive)
         {
             spriteRenderer.sprite = activeSprite;
         }
