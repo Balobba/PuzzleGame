@@ -8,7 +8,7 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
     Camera mycam;
     public float m_speed = 0.1f; //the speed of the camera
-    public float cameraZoom = 100f;
+    public float cameraZoom = 70f;
 
     // Use this for initialization
     void Start()
