@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fader
   - TileBase
+  - Obstacle
   layers:
   - Default
   - TransparentFX
