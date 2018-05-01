@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+{//The camera script that makes the camera follow the player
 public class CameraFollow : MonoBehaviour
 {//The camera script that makes the camera follow the player
 
     public Transform target;
     Camera mycam;
     public float m_speed = 0.1f; //the speed of the camera
-    public float cameraZoom;
+    public float cameraZoom = 100f;
 
     // Use this for initialization
     void Start()
@@ -19,16 +20,22 @@ public class CameraFollow : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+   
+	// Use this for initialization
+	void Start () {
+        mycam = GetComponent<Camera>();
 
-        mycam.orthographicSize = (Screen.height / cameraZoom); //can be 2f or 4f instead. 5f is good! (Increased number = closer camera)
+
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+        mycam.orthographicSize = (Screen.height / cameraZoom); // (Increased number = closer camera)
         if (target)
         {   //moves the camera
-
             transform.position = Vector3.Lerp(transform.position, target.position, m_speed) + new Vector3(0, 0, -10); //avoids the camera from moving in z-position 
         }
 
-
-    }
+	}
 }
