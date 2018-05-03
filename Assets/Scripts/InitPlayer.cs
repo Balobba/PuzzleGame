@@ -11,7 +11,7 @@ public class InitPlayer : MonoBehaviour { //Initiates the player by spawning it 
     private void Awake()
     {
 
-        gameObject.transform.position = spawnPoint.position;
+        //gameObject.transform.position = spawnPoint.position;
 
     }
 
