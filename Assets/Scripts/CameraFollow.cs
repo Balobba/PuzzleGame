@@ -24,6 +24,7 @@ public class CameraFollow : MonoBehaviour
     {
 
         mycam.orthographicSize = (Screen.height / cameraZoom); // (Increased number = closer camera)
+        //mycam.orthographicSize = Screen.width / (((Screen.width / Screen.height) * 2) * 32);
         if (target)
         {   //moves the camera
             transform.position = Vector3.Lerp(transform.position, target.position, m_speed) + new Vector3(0, 0, -10); //avoids the camera from moving in z-position 

@@ -5,16 +5,15 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
-    private Color successColor = Color.green;
-    private Color failColor = Color.red;
-
     public Sprite activeSprite;
     public Sprite dormantSprite;
 
+    public string[] puzzleNames;
 
     // True while someone steps on it, false otherwise
     private bool isActive = false;
     private Vector2Int position;
+    private string puzzleName;
 
     public bool IsActive
     {
@@ -42,6 +41,19 @@ public class PressurePlate : MonoBehaviour {
         }
     }
 
+    public string PuzzleName
+    {
+        get
+        {
+            return puzzleName;
+        }
+
+        set
+        {
+            puzzleName = value;
+        }
+    }
+
     // Use this for initialization
     void Start ()
     {
@@ -64,9 +76,23 @@ public class PressurePlate : MonoBehaviour {
 
     private void SignalPuzzle(GameObject player)
     {
-        GameObject gameObject = GameObject.Find("PressurePlatePuzzle");
-        PressurePuzzleLogic ppl = gameObject.GetComponent<PressurePuzzleLogic>();
-        ppl.PressurePlateActivated(Position, player);
+        GameObject gameObject;
+        switch (PuzzleName)
+        {
+            case "PressurePlatePuzzle":
+                gameObject = GameObject.Find("PressurePlatePuzzle");
+                PressurePuzzleLogic ppl = gameObject.GetComponent<PressurePuzzleLogic>();
+                ppl.PressurePlateActivated(Position, player);
+                break;
+            case "NumberMaze":
+                gameObject = GameObject.Find("NumberMaze");
+                NumberMaze numberMaze = gameObject.GetComponent<NumberMaze>();
+                numberMaze.PressurePlateActivated(Position, player);
+                break;
+            default:
+                break;
+
+        }
     }
 
     private void SetSprite()

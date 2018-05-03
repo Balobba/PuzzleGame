@@ -35,13 +35,13 @@ public class PressurePuzzleLogic : MonoBehaviour {
         currentSolution = solutions.GetSolution(currentSolutionID);
         FindStart();
         SpawnPlates();
-
     }
 	
 	// Update is called once per frame
 	void Update () {
         //CheckForFailure();
 	}
+
 
     private void PrintSolution()
     {
@@ -118,6 +118,7 @@ public class PressurePuzzleLogic : MonoBehaviour {
                 GameObject gameObject = Instantiate(pressurePlatePrefab, spawnPos, Quaternion.identity);
                 PressurePlate pressurePlate = gameObject.GetComponent<PressurePlate>();
                 pressurePlate.Position = new Vector2Int(x, y);
+                pressurePlate.PuzzleName = "PressurePlatePuzzle";
             
             }
         }

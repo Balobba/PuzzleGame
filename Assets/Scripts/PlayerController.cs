@@ -16,6 +16,19 @@ public class PlayerController : MonoBehaviour
     public string horizontalMovement = "";
     public string verticalMovement = "";
 
+    public bool Action
+    {
+        get
+        {
+            return action;
+        }
+
+        private set
+        {
+            action = value;
+        }
+    }
+
 
 
     // Use this for initialization
@@ -30,7 +43,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!action)
+        if (!Action)
         {
             Vector2 movement_vector = new Vector2(Input.GetAxisRaw(horizontalMovement), Input.GetAxisRaw(verticalMovement));
             if (movement_vector != Vector2.zero)
@@ -52,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
                 print("PRESSED: " + actionButton);
                 actionTimeCounter = actionTime;
-                action = true;
+                Action = true;
                 //rbody.velocity = Vector2.zero; //stops moving the character
                 anim.SetBool("is_performing_action", true);
 
@@ -71,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
         if (actionTimeCounter <= 0)
         {
-            action = false;
+            Action = false;
             anim.SetBool("is_performing_action", false);
 
         }
