@@ -3,15 +3,14 @@
 public class StoneInteractable : MonoBehaviour
 {
 
-    private GameObject thePlayer;
     public float pushDistance = 1f;
-
+    Rigidbody2D stoneBody;
 
     private void Start()
     {
-        thePlayer = GameObject.FindWithTag("Player");
-
+        stoneBody = gameObject.GetComponent<Rigidbody2D>();
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,32 +19,40 @@ public class StoneInteractable : MonoBehaviour
         {
 
 
-            if (Mathf.Abs(gameObject.transform.position.y - thePlayer.transform.position.y) > Mathf.Abs(gameObject.transform.position.x - thePlayer.transform.position.x))
+            if (Mathf.Abs(gameObject.transform.position.y - collision.gameObject.transform.position.y) > Mathf.Abs(gameObject.transform.position.x - collision.gameObject.transform.position.x))
             {
-                if (Mathf.Abs(thePlayer.transform.position.y) > Mathf.Abs(gameObject.transform.position.y))
+                if (Mathf.Abs(collision.gameObject.transform.position.y) > Mathf.Abs(gameObject.transform.position.y))
                 {
                     Debug.Log("rock over player");
                     gameObject.transform.Translate(0, pushDistance, 0);
+                    stoneBody.velocity = new Vector2(0, 0);
+                    gameObject.transform.Translate(0, 0, 0);
 
                 }
                 else
                 {
                     Debug.Log("rock under player");
                     gameObject.transform.Translate(0, -pushDistance, 0);
+                    stoneBody.velocity = new Vector2(0, 0);
+                    gameObject.transform.Translate(0, 0, 0);
                 }
             }
             else
             {
-                if (Mathf.Abs(thePlayer.transform.position.x) > Mathf.Abs(gameObject.transform.position.x))
+                if (Mathf.Abs(collision.gameObject.transform.position.x) > Mathf.Abs(gameObject.transform.position.x))
                 {
                     Debug.Log("rock left of player");
                     gameObject.transform.Translate(-pushDistance, 0, 0);
+                    stoneBody.velocity = new Vector2(0, 0);
+                    gameObject.transform.Translate(0, 0, 0);
 
                 }
                 else
                 {
                     Debug.Log("rock right of player");
                     gameObject.transform.Translate(pushDistance, 0, 0);
+                    stoneBody.velocity = new Vector2(0, 0);
+                    gameObject.transform.Translate(0, 0, 0);
 
                 }
             }

@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("is_walking", true);
                 anim.SetFloat("input_x", movement_vector.x);
                 anim.SetFloat("input_y", movement_vector.y);
+                
             }
             else
             {
