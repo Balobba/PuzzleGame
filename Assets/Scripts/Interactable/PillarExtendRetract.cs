@@ -7,8 +7,6 @@ public class PillarExtendRetract : MonoBehaviour
 
     Animator anim;
     private bool extended; //This is a bool for animations
-    public GameObject lever;
-    private LeverHandler leverhandler;
     public int pillarID = 0;
 
     // Use this for initialization
@@ -16,7 +14,6 @@ public class PillarExtendRetract : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         extended = anim.GetBool("extended");
-        leverhandler = lever.gameObject.GetComponent<LeverHandler>();
     }
 
     // Update is called once per frame

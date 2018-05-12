@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lever: {fileID: 0}
-  ID: 0
+  pillarID: 0
 --- !u!212 &212373868767096570
 SpriteRenderer:
   m_ObjectHideFlags: 1

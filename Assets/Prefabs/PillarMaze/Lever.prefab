@@ -96,8 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7396c9d7f97fe147a9654c1cdeeef1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leverLeft: {fileID: 21300008, guid: 01e96abbf77f59b4eb85cd114fa19877, type: 3}
-  leverRight: {fileID: 21300056, guid: 01e96abbf77f59b4eb85cd114fa19877, type: 3}
+  leverID: 0
 --- !u!212 &212799225491411854
 SpriteRenderer:
   m_ObjectHideFlags: 1
