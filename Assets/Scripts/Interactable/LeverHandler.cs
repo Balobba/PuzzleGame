@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeverHandler : MonoBehaviour {
+public class LeverHandler : MonoBehaviour
+{
     PlayerController player1;
     PlayerController player2;
     private bool player1Close = false;
@@ -16,17 +17,21 @@ public class LeverHandler : MonoBehaviour {
     public Sprite leverLeft;
     public Sprite leverRight;
 
+    Animator anim;
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         player1 = GameObject.Find(player1Name).GetComponent<PlayerController>();
         player2 = GameObject.Find(player2Name).GetComponent<PlayerController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        anim = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (coolDownTimer <= 0)
         {
             if (player1Close || player2Close)
@@ -42,7 +47,7 @@ public class LeverHandler : MonoBehaviour {
             {
                 coolDownTimer = 0;
             }
-        }     
+        }
     }
 
     private void HandleAction()
@@ -63,11 +68,13 @@ public class LeverHandler : MonoBehaviour {
     {
         if (spriteRenderer.sprite == leverLeft)
         {
-            spriteRenderer.sprite = leverRight;
+            anim.SetTrigger("flipright");
+            //spriteRenderer.sprite = leverRight; //Animation takes care of sprite flipping
         }
         else
         {
-            spriteRenderer.sprite = leverLeft;
+            anim.SetTrigger("flipleft");
+            //spriteRenderer.sprite = leverLeft; //Animation takes care of sprite flipping
         }
     }
 
