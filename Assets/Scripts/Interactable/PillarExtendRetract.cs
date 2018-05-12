@@ -6,22 +6,23 @@ public class PillarExtendRetract : MonoBehaviour
 {
 
     Animator anim;
-    private bool extended = false;
+    private bool extended;
 
     // Use this for initialization
     void Start()
     {
         anim = GetComponent<Animator>();
+        extended = anim.GetBool("extended");
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown("space")){
 
             if (!extended)
             {
-
 
                 ExtendPillar();
             }
@@ -36,8 +37,8 @@ public class PillarExtendRetract : MonoBehaviour
 
     public void ExtendPillar()
     {
-        anim.ResetTrigger("retracted");
-        anim.SetTrigger("extend");
+        anim.SetTrigger("switch");
+        anim.SetBool("extended", true);
         extended = true;
 
     }
@@ -45,8 +46,8 @@ public class PillarExtendRetract : MonoBehaviour
     public void RetractPillar()
     {
 
-        anim.ResetTrigger("extended");
-        anim.SetTrigger("retract");
+        anim.SetTrigger("switch");
+        anim.SetBool("extended", false);
         extended = false;
 
     }
