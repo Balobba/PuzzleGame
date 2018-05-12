@@ -12,12 +12,14 @@ public class LeverHandler : MonoBehaviour
     private string player2Name = "Player Female";
     private float coolDown = 1f;
     private float coolDownTimer = 0;
+    private bool activated = false; //This is a bool for animations
+    public int leverID = 0;
 
-    private SpriteRenderer spriteRenderer;
-    public Sprite leverLeft;
-    public Sprite leverRight;
-
+    private List<PillarExtendRetract> pillarList;
+    
     Animator anim;
+
+
 
 
     // Use this for initialization
@@ -25,13 +27,16 @@ public class LeverHandler : MonoBehaviour
     {
         player1 = GameObject.Find(player1Name).GetComponent<PlayerController>();
         player2 = GameObject.Find(player2Name).GetComponent<PlayerController>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        pillarList = new List<PillarExtendRetract>();
+        GetAllPillars();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (coolDownTimer <= 0)
         {
             if (player1Close || player2Close)
@@ -50,31 +55,62 @@ public class LeverHandler : MonoBehaviour
         }
     }
 
+
+    private void GetAllPillars()
+    {
+        GameObject[] allPillarsArray = GameObject.FindGameObjectsWithTag("Pillar");
+        Debug.Log("length of array:" + allPillarsArray.Length);
+
+        foreach (GameObject pillar in allPillarsArray)
+        {
+            PillarExtendRetract per = pillar.GetComponent<PillarExtendRetract>();
+            
+           if(per.pillarID == leverID)
+            {
+                pillarList.Add(per);
+            }
+        }
+        Debug.Log("length of pillarList:" + pillarList.Count);
+    }
+
     private void HandleAction()
     {
         if (player1.Action && player1Close)
         {
             coolDownTimer = coolDown;
+            
             FlipLever();
+            
         }
         else if (player2.Action && player2Close)
         {
             coolDownTimer = coolDown;
+            
             FlipLever();
+            
         }
     }
 
     private void FlipLever()
     {
-        if (spriteRenderer.sprite == leverLeft)
+
+
+        foreach (PillarExtendRetract per in pillarList)
         {
-            anim.SetTrigger("flipright");
-            //spriteRenderer.sprite = leverRight; //Animation takes care of sprite flipping
+            per.PillarSwitch();
+
+        }
+
+        
+        if (activated)
+        {
+            anim.SetTrigger("flipleft");
+            activated = false;
         }
         else
         {
-            anim.SetTrigger("flipleft");
-            //spriteRenderer.sprite = leverLeft; //Animation takes care of sprite flipping
+            anim.SetTrigger("flipright");
+            activated = true;
         }
     }
 

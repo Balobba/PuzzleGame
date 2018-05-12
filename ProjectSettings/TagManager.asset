@@ -8,6 +8,7 @@ TagManager:
   - TileBase
   - Obstacle
   - TileMap
+  - Pillar
   layers:
   - Default
   - TransparentFX
